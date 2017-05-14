@@ -1,0 +1,73 @@
+---
+title: "pi"
+author: "Andres Aravena"
+date: "13/05/2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = "")
+```
+
+```{python eval=FALSE}
+from decimal import Decimal as Dec, getcontext as gc
+
+gc().prec = 50
+x = Dec(1)
+acc = x
+for i in range(1,40):
+  x /= i
+  acc += x
+#  print(x)
+  print(acc)
+```
+
+```{python eval=TRUE}
+from decimal import *
+
+getcontext().prec = 30
+s = Decimal('0.5')
+n = 4
+for i in range(30):
+  s = (1 - (1-s).sqrt()) / 2
+  n = n * 2
+  print(n * s.sqrt())
+```
+
+
+```{python eval=TRUE}
+from decimal import *
+
+maxK=70; prec=1008; disp=1007
+getcontext().prec = 50
+K = Decimal(6)
+M = X = Decimal(1)
+L = S = Decimal(13591409)
+A = Decimal(10005).sqrt()
+for k in range(1, 10):
+  M = (K**3 - K*16) * M / Decimal(k)**3 
+  L += 545140134
+  X *= -262537412640768000
+  S += M * L / X
+  K += 12
+  pi = 426880 * A / S
+  print(pi)
+```
+
+```{python eval=TRUE}
+from decimal import *
+
+getcontext().prec = 10000
+K = Decimal(6)
+M = X = Decimal(1)
+L = S = Decimal(13591409)
+for k in range(1, 301):
+  M = (K**3 - K*16) * M / Decimal(k)**3 
+  L += Decimal(545140134)
+  X *= Decimal(-262537412640768000)
+  S += M * L / X
+  K += 12
+
+pi = 426880 * Decimal(10005).sqrt() / S
+print(pi)
+```
