@@ -1,0 +1,10 @@
+library(readr)
+times <- read_delim("times.txt", "\t", escape_double = FALSE, col_names = FALSE, trim_ws = TRUE)
+times$L1=log(times$X1)
+times$L2=log(times$X2)
+# times$L2=times$L2-min(times$L2)
+plot(X2~X1, data=times, type="b", log="xy")
+# plot(L2~L1, data=times, type="b", log="")
+li <- lm(L2~L1, data=times, subset=L1>5)
+lines(2^(8:13), exp(predict(li)), col="red", lwd=3)
+exp(predict(li, data.frame(L1=log(1e5))))/3600
